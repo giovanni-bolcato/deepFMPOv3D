@@ -1,7 +1,7 @@
 # DeepFMPO v3D
 
 Code accompanying the paper "On the value of using 3D-shape and electrostatic similarities in deep generative methods". 
-The paper can be found at https://doi.org/xxx/chemrxiv.xx.v1
+The paper can be found at https://doi.org/10.33774/chemrxiv-2021-sqvv9
 
 ## Instructions
 To run the code on the default dataset use the command:
