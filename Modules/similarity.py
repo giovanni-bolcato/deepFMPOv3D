@@ -90,7 +90,7 @@ def EmbedAlignConstrainedScore(prbMol,
                     shapeDist=shape
                     prbBestConf=j
                     refBestConf=i
-                AllChem.AlignMol(prbMol,refMol,atomMap=list(zip(prbMatch,refMatch)),prbCid=prbBestConf,refCid=refBestConf) 
+        AllChem.AlignMol(prbMol,refMol,atomMap=list(zip(prbMatch,refMatch)),prbCid=prbBestConf,refCid=refBestConf) 
         allShapeDist.append(1-shapeDist)
         best_conf_1_0=Chem.MolToMolBlock(refMol,confId=refBestConf)
         best_conf_2_0=Chem.MolToMolBlock(prbMol,confId=prbBestConf)
