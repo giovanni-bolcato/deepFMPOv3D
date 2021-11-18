@@ -1,5 +1,4 @@
 from global_parameters import ETA
-import Levenshtein
 from rdkit.Chem import rdFMCS
 from global_parameters import partialCharges
 from global_parameters import basisPsi4
