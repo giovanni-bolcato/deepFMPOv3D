@@ -96,7 +96,7 @@ if __name__ == "__main__":
     df['TPSA'] = df.Mol_out.apply(calc_tpsa)
     df['MolWT'] = df.Mol_out.apply(calc_molWT)
 
-    PandasTools.WriteSDF(df, 'tot_duplicati.sdf',molColName='Mol_out' ,idName=None, allNumeric=False, properties=list(df.columns))
+    PandasTools.WriteSDF(df, 'results.sdf',molColName='Mol_out' ,idName=None, allNumeric=False, properties=list(df.columns))
     header = ["Name","in_smiles", "out_smiles", "MolWT", "logP","TPSA"]
     del df['Mol_out']
     df.to_csv('tot.csv')
