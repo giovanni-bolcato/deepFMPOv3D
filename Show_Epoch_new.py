@@ -10,11 +10,13 @@ from rdkit.Chem import PandasTools
 import pandas as pd
 from rdkit.Chem import Descriptors
 
+from espsim import EmbedAlignConstrainedScore, EmbedAlignScore
+
 import numpy as np
 import argparse
 from rdkit import rdBase
 rdBase.DisableLog('rdApp.error')
-
+pd.options.mode.chained_assignment = None 
 
 def safe_decode(x, decodings):
     try:
@@ -23,8 +25,6 @@ def safe_decode(x, decodings):
         return m
     except:
         return None
-
-
 
 def main(epoch):
     decodings2 = read_decodings()
@@ -79,6 +79,12 @@ def check_smile(smi):
         check ='ok'
     return check
 
+def calc_espsim(smi_ref,smi_mol):
+    mol_ref=Chem.rdmolops.AddHs(Chem.MolFromSmiles(smi_ref))
+    mol_mol=Chem.rdmolops.AddHs(Chem.MolFromSmiles(smi_mol))
+    simShape,simEsp=EmbedAlignScore(mol_ref,mol_mol)
+    return simEsp[0]
+
 if __name__ == "__main__":
 
     df_list=[]
@@ -98,5 +104,20 @@ if __name__ == "__main__":
 
     PandasTools.WriteSDF(df, 'results.sdf',molColName='Mol_out' ,idName=None, allNumeric=False, properties=list(df.columns))
     header = ["Name","in_smiles", "out_smiles", "MolWT", "logP","TPSA"]
+    
+    df_2 = df.drop_duplicates(subset=['out_smiles'])
+
+    l=[]
+    for i in range(len(df_2)):
+        l.append(calc_espsim(df_2['out_smiles'].iloc[[i]].item(),df_2['in_smiles'].iloc[[i]].item()))
+
+    df_2['esp_sim'] = l
+
+    df_2.drop('Name', axis=1, inplace=True)
+
+    PandasTools.WriteSDF(df_2, 'results_uniq.sdf',molColName='Mol_out' ,idName=None, allNumeric=False, properties=list(df_2.columns))
+    header = ["in_smiles", "out_smiles", "MolWT", "logP","TPSA","ESP_sim"]
+
+    
     del df['Mol_out']
     df.to_csv('tot.csv')
