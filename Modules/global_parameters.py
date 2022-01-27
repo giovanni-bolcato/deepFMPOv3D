@@ -32,15 +32,15 @@ partialCharges='gasteiger'
 
 #Descriptors range
 
-MW_upper_limit=500
-MW_lower_limit=300
+MW_upper_limit=420
+MW_lower_limit=320
 
-logp_upper_limit=4
-logp_lower_limit=3
+logp_upper_limit=4.3
+logp_lower_limit=2.3
 
 
-TPSA_upper_limit=100
-TPSA_lower_limit=60
+TPSA_upper_limit=65
+TPSA_lower_limit=45
 
 
 
